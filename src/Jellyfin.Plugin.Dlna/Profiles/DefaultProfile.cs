@@ -67,19 +67,6 @@ public class DefaultProfile : DlnaDeviceProfile
 
         DirectPlayProfiles =
         [
-            new DirectPlayProfile
-            {
-                // play all
-                Container = string.Empty,
-                Type = DlnaProfileType.Video
-            },
-
-            new DirectPlayProfile
-            {
-                // play all
-                Container = string.Empty,
-                Type = DlnaProfileType.Audio
-            }
         ];
 
         SubtitleProfiles =

@@ -19,28 +19,7 @@ public static class PlaylistItemFactory
     /// <param name="profile">The <see cref="DlnaDeviceProfile"/>.</param>
     public static PlaylistItem Create(Photo item, DlnaDeviceProfile profile)
     {
-        var playlistItem = new PlaylistItem
-        {
-            StreamInfo = new StreamInfo
-            {
-                ItemId = item.Id,
-                MediaType = DlnaProfileType.Photo,
-                DeviceProfile = profile
-            },
-
-            Profile = profile
-        };
-
-        var directPlay = profile.DirectPlayProfiles
-            .FirstOrDefault(i => i.Type == DlnaProfileType.Photo && IsSupported(i, item));
-
-        if (directPlay is not null)
-        {
-            playlistItem.StreamInfo.PlayMethod = PlayMethod.DirectStream;
-            playlistItem.StreamInfo.Container = Path.GetExtension(item.Path);
-
-            return playlistItem;
-        }
+        var playlistItem = new PlaylistItem { StreamInfo = new StreamInfo { ItemId = item.Id, MediaType = DlnaProfileType.Photo, DeviceProfile = profile }, Profile = profile };
 
         var transcodingProfile = profile.TranscodingProfiles
             .FirstOrDefault(i => i.Type == DlnaProfileType.Photo);
@@ -56,19 +35,6 @@ public static class PlaylistItemFactory
 
     private static bool IsSupported(DirectPlayProfile profile, Photo item)
     {
-        var mediaPath = item.Path;
-
-        if (profile.Container.Length > 0)
-        {
-            // Check container type
-            var mediaContainer = (Path.GetExtension(mediaPath) ?? string.Empty).TrimStart('.');
-
-            if (!profile.SupportsContainer(mediaContainer))
-            {
-                return false;
-            }
-        }
-
-        return true;
+        return false;
     }
 }
